@@ -1,0 +1,2 @@
+# offline tests only (python run.py test); a range, not a lock
+pytest>=8,<10

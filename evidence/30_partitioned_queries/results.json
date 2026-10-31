@@ -1,0 +1,114 @@
+{
+  "experiment": "Experiment C: partitioned vs global queries",
+  "started": "2026-10-30T21:58:29+01:00",
+  "finished": "2026-10-30T21:58:29+01:00",
+  "passed": 15,
+  "failed": 0,
+  "checks": [
+    {
+      "step": 1,
+      "check": "orders_global created",
+      "expected": "HTTP 201",
+      "observed": "HTTP 201",
+      "result": "PASS"
+    },
+    {
+      "step": 1,
+      "check": "orders_global settings",
+      "expected": "partitioned=False, q=2, n=1",
+      "observed": "partitioned=False, q=2, n=1",
+      "result": "PASS"
+    },
+    {
+      "step": 2,
+      "check": "All documents stored in orders_global",
+      "expected": "100 ok items",
+      "observed": "100 ok items",
+      "result": "PASS"
+    },
+    {
+      "step": 3,
+      "check": "orders_partitioned created",
+      "expected": "HTTP 201",
+      "observed": "HTTP 201",
+      "result": "PASS"
+    },
+    {
+      "step": 3,
+      "check": "orders_partitioned settings",
+      "expected": "partitioned=True, q=2, n=1",
+      "observed": "partitioned=True, q=2, n=1",
+      "result": "PASS"
+    },
+    {
+      "step": 4,
+      "check": "All documents stored in orders_partitioned",
+      "expected": "100 ok items",
+      "observed": "100 ok items",
+      "result": "PASS"
+    },
+    {
+      "step": 6,
+      "check": "Id without 'partition:' prefix is rejected",
+      "expected": "HTTP 400 (illegal docid)",
+      "observed": "HTTP 400 {'error': 'illegal_docid', 'reason': 'Doc id must be of form partition:id'}",
+      "result": "PASS"
+    },
+    {
+      "step": 7,
+      "check": "Index on orders_global",
+      "expected": "result \"created\"",
+      "observed": "HTTP 200 {'result': 'created', 'id': '_design/591cb3576dc894f40da581497ad265373df59672', 'name': 'tenant-status'}",
+      "result": "PASS"
+    },
+    {
+      "step": 8,
+      "check": "Index on orders_partitioned",
+      "expected": "result \"created\"",
+      "observed": "HTTP 200 {'result': 'created', 'id': '_design/2eefeb80e568aa31697f8fa890fb1975f63b821a', 'name': 'tenant-status'}",
+      "result": "PASS"
+    },
+    {
+      "step": 9,
+      "check": "global query uses the tenant-status index",
+      "expected": "index tenant-status",
+      "observed": "index tenant-status (partitioned=False)",
+      "result": "PASS"
+    },
+    {
+      "step": 11,
+      "check": "partition query uses the tenant-status index",
+      "expected": "index tenant-status",
+      "observed": "index tenant-status (partitioned=True)",
+      "result": "PASS"
+    },
+    {
+      "step": 12,
+      "check": "Both endpoints return the same document ids (limit 100, one page)",
+      "expected": "10 ids, equal to a client-side filter",
+      "observed": "global 10, partition 10, equal=True",
+      "result": "PASS"
+    },
+    {
+      "step": 14,
+      "check": "Complete paged result sets are identical",
+      "expected": "10 unique ids on both endpoints",
+      "observed": "global 10, partition 10, equal=True",
+      "result": "PASS"
+    },
+    {
+      "step": 14,
+      "check": "Data unchanged during the comparison",
+      "expected": "{'orders_global': 101, 'orders_partitioned': 101}",
+      "observed": "{'orders_global': 101, 'orders_partitioned': 101}",
+      "result": "PASS"
+    },
+    {
+      "step": 15,
+      "check": "Cross-store query is answered, but by scanning",
+      "expected": "42 docs, examined ~ all 100 documents (no global index)",
+      "observed": "42 docs, examined 101",
+      "result": "PASS"
+    }
+  ]
+}

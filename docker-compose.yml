@@ -1,0 +1,46 @@
+# two separate single-node couchdb instances, not one cluster
+# the shared network is only there so each replicator can reach the other by name
+#
+# image pinned by tag; the digest we tested is in README.md and VERIFICATION.md
+# to lock it hard, use  couchdb:3.5.2@sha256:<digest>
+
+name: couchdb-lab
+
+services:
+  couch-a:
+    image: couchdb:3.5.2
+    container_name: couch-a
+    hostname: couch-a
+    environment:
+      COUCHDB_USER: ${COUCH_A_USER:?set COUCH_A_USER in .env}
+      COUCHDB_PASSWORD: ${COUCH_A_PASSWORD:?set COUCH_A_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:${COUCH_A_PORT:-5984}:5984"   # localhost only
+    volumes:
+      - couch-a-data:/opt/couchdb/data             # named volume, avoids selinux relabelling on fedora
+    mem_limit: 512m
+    networks: [couchnet]
+    restart: "no"
+
+  couch-b:
+    image: couchdb:3.5.2
+    container_name: couch-b
+    hostname: couch-b
+    environment:
+      COUCHDB_USER: ${COUCH_B_USER:?set COUCH_B_USER in .env}
+      COUCHDB_PASSWORD: ${COUCH_B_PASSWORD:?set COUCH_B_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:${COUCH_B_PORT:-5985}:5984"
+    volumes:
+      - couch-b-data:/opt/couchdb/data
+    mem_limit: 512m
+    networks: [couchnet]
+    restart: "no"
+
+volumes:
+  couch-a-data:
+  couch-b-data:
+
+networks:
+  couchnet:
+    name: couchnet

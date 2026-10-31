@@ -1,0 +1,198 @@
+{
+  "experiment": "Experiment B: two-way replication, conflict and resolution",
+  "started": "2026-10-30T21:48:30+01:00",
+  "finished": "2026-10-30T21:58:12+01:00",
+  "passed": 27,
+  "failed": 0,
+  "checks": [
+    {
+      "step": 1,
+      "check": "Job document rep-a-to-b-1 saved",
+      "expected": "HTTP 201",
+      "observed": "HTTP 201",
+      "result": "PASS"
+    },
+    {
+      "step": 2,
+      "check": "Job document rep-b-to-a-1 saved",
+      "expected": "HTTP 201",
+      "observed": "HTTP 201",
+      "result": "PASS"
+    },
+    {
+      "step": 3,
+      "check": "rep-a-to-b-1 is running without errors",
+      "expected": "state \"running\", no error in info",
+      "observed": "state \"running\" after 0.02s, info={'revisions_checked': 100, 'missing_revisions_found': 100, 'docs_read': 100, 'docs_written': 100, 'changes_pending': None, 'doc_write_failures': 0, 'bulk_get_docs': 100, 'bulk_get_attempts': 100, 'checkpointed_source_seq': '0', 'source_seq': '100-g1AAAACLeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCScyJNX___8_K4M50SAXKMCeaJmYmJxsia4Yh_Y8FiDJ0ACk_kNNMQGbkpxqaZmaZISuJwsAlEIrrA', 'through_seq': '100-g1AAAACLeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCScyJNX___8_K4M50SAXKMCeaJmYmJxsia4Yh_Y8FiDJ0ACk_kNNMQGbkpxqaZmaZISuJwsAlEIrrA'}",
+      "result": "PASS"
+    },
+    {
+      "step": 4,
+      "check": "rep-b-to-a-1 is running without errors",
+      "expected": "state \"running\", no error in info",
+      "observed": "state \"running\" after 0.01s, info={'revisions_checked': 100, 'missing_revisions_found': 0, 'docs_read': 0, 'docs_written': 0, 'changes_pending': None, 'doc_write_failures': 0, 'bulk_get_docs': 0, 'bulk_get_attempts': 0, 'checkpointed_source_seq': '0', 'source_seq': '100-g1AAAACLeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCScyJNX___8_K4M50SAXKMCelmaQZGFmgq4Yh_Y8FiDJ0ACk_kNNMQGbYmJmZmZpkoauJwsAaGEqxw', 'through_seq': '100-g1AAAACLeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCScyJNX___8_K4M50SAXKMCelmaQZGFmgq4Yh_Y8FiDJ0ACk_kNNMQGbYmJmZmZpkoauJwsAaGEqxw'}",
+      "result": "PASS"
+    },
+    {
+      "step": 5,
+      "check": "B holds the same number of documents as A",
+      "expected": "doc_count 100 on both",
+      "observed": "B doc_count 100 after 0.0s",
+      "result": "PASS"
+    },
+    {
+      "step": 7,
+      "check": "A -> B replication works",
+      "expected": "store02:order-from-a readable on B",
+      "observed": "found=True after 0.0s",
+      "result": "PASS"
+    },
+    {
+      "step": 9,
+      "check": "B -> A replication works",
+      "expected": "store03:order-from-b readable on A",
+      "observed": "found=True after 0.0s",
+      "result": "PASS"
+    },
+    {
+      "step": 11,
+      "check": "A and B have the same current revision",
+      "expected": "_rev 1-845cc458c4077f578aa02eb284f6a81a on both",
+      "observed": "A 1-845cc458c4077f578aa02eb284f6a81a, B 1-845cc458c4077f578aa02eb284f6a81a",
+      "result": "PASS"
+    },
+    {
+      "step": 12,
+      "check": "rep-a-to-b-1 document deleted",
+      "expected": "HTTP 200",
+      "observed": "HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "step": 13,
+      "check": "rep-b-to-a-1 document deleted",
+      "expected": "HTTP 200",
+      "observed": "HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "step": 14,
+      "check": "No running job for rep-a-to-b-1",
+      "expected": "rep-a-to-b-1 absent from /_scheduler/jobs",
+      "observed": "absent=True after 0.0s",
+      "result": "PASS"
+    },
+    {
+      "step": 15,
+      "check": "No running job for rep-b-to-a-1",
+      "expected": "rep-b-to-a-1 absent from /_scheduler/jobs",
+      "observed": "absent=True after 0.0s",
+      "result": "PASS"
+    },
+    {
+      "step": 16,
+      "check": "Edit accepted locally on A",
+      "expected": "HTTP 201",
+      "observed": "HTTP 201, rev 2-1f7d40c3ddc5854aa139802e059b188b",
+      "result": "PASS"
+    },
+    {
+      "step": 17,
+      "check": "Edit accepted locally on B",
+      "expected": "HTTP 201",
+      "observed": "HTTP 201, rev 2-d520350d5b45912a18d482c3b8a236e6",
+      "result": "PASS"
+    },
+    {
+      "step": 17,
+      "check": "The two branches now hold different revisions",
+      "expected": "two different 2-... revisions",
+      "observed": "A 2-1f7d40c3ddc5854aa139802e059b188b, B 2-d520350d5b45912a18d482c3b8a236e6",
+      "result": "PASS"
+    },
+    {
+      "step": 18,
+      "check": "Job document rep-a-to-b-2 saved",
+      "expected": "HTTP 201",
+      "observed": "HTTP 201",
+      "result": "PASS"
+    },
+    {
+      "step": 19,
+      "check": "Job document rep-b-to-a-2 saved",
+      "expected": "HTTP 201",
+      "observed": "HTTP 201",
+      "result": "PASS"
+    },
+    {
+      "step": 20,
+      "check": "rep-a-to-b-2 is running without errors",
+      "expected": "state \"running\", no error in info",
+      "observed": "state \"running\" after 0.01s, info={'revisions_checked': 106, 'missing_revisions_found': 103, 'docs_read': 103, 'docs_written': 103, 'changes_pending': None, 'doc_write_failures': 0, 'bulk_get_docs': 103, 'bulk_get_attempts': 103, 'checkpointed_source_seq': '103-g1AAAACLeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCScyJNX___8_K4M50TAXKMCeaJmYmJxsia4Yh_Y8FiDJ0ACk_kNNMQObkpxqaZmaZISuJwsAlOIrrw', 'source_seq': '105-g1AAAACLeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCScyJNX___8_K4M50TgXKMCeaJmYmJxsia4Yh_Y8FiDJ0ACk_kNNMQObkpxqaZmaZISuJwsAlaorsQ', 'through_seq': '105-g1AAAACLeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCScyJNX___8_K4M50TgXKMCeaJmYmJxsia4Yh_Y8FiDJ0ACk_kNNMQObkpxqaZmaZISuJwsAlaorsQ'}",
+      "result": "PASS"
+    },
+    {
+      "step": 21,
+      "check": "rep-b-to-a-2 is running without errors",
+      "expected": "state \"running\", no error in info",
+      "observed": "state \"running\" after 0.01s, info={'revisions_checked': 105, 'missing_revisions_found': 2, 'docs_read': 2, 'docs_written': 2, 'changes_pending': None, 'doc_write_failures': 0, 'bulk_get_docs': 2, 'bulk_get_attempts': 2, 'checkpointed_source_seq': '103-g1AAAACLeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCScyJNX___8_K4M50TAXKMCelmaQZGFmgq4Yh_Y8FiDJ0ACk_kNNMQObYmJmZmZpkoauJwsAaQEqyg', 'source_seq': '105-g1AAAACLeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCScyJNX___8_K4M50TgXKMCelmaQZGFmgq4Yh_Y8FiDJ0ACk_kNNMQObYmJmZmZpkoauJwsAackqzA', 'through_seq': '105-g1AAAACLeJzLYWBgYMpgTmHgzcvPy09JdcjLz8gvLskBCScyJNX___8_K4M50TgXKMCelmaQZGFmgq4Yh_Y8FiDJ0ACk_kNNMQObYmJmZmZpkoauJwsAackqzA'}",
+      "result": "PASS"
+    },
+    {
+      "step": 22,
+      "check": "Both instances report a conflict",
+      "expected": "_conflicts present on A and B",
+      "observed": "A after 0.0s: True, B after 0.0s: True",
+      "result": "PASS"
+    },
+    {
+      "step": 22,
+      "check": "Both instances pick the same winning revision",
+      "expected": "same _rev and same _conflicts on A and B",
+      "observed": "A 2-d520350d5b45912a18d482c3b8a236e6 / ['2-1f7d40c3ddc5854aa139802e059b188b']; B 2-d520350d5b45912a18d482c3b8a236e6 / ['2-1f7d40c3ddc5854aa139802e059b188b']",
+      "result": "PASS"
+    },
+    {
+      "step": 22,
+      "check": "Winner follows the documented deterministic rule",
+      "expected": "equal revision depth, so the higher revision id wins: 2-d520350d5b45912a18d482c3b8a236e6",
+      "observed": "2-d520350d5b45912a18d482c3b8a236e6",
+      "result": "PASS"
+    },
+    {
+      "step": 23,
+      "check": "Losing revision is still readable",
+      "expected": "HTTP 200, _rev 2-1f7d40c3ddc5854aa139802e059b188b",
+      "observed": "HTTP 200, _rev 2-1f7d40c3ddc5854aa139802e059b188b",
+      "result": "PASS"
+    },
+    {
+      "step": 24,
+      "check": "Merged revision saved on the winning branch",
+      "expected": "HTTP 201, rev 3-... (child of 2-d520350d5b45912a18d482c3b8a236e6)",
+      "observed": "HTTP 201, rev 3-8fc0650d59560c8a809451b7b2330f55",
+      "result": "PASS"
+    },
+    {
+      "step": 25,
+      "check": "Losing leaf marked deleted",
+      "expected": "HTTP 200",
+      "observed": "HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "step": 26,
+      "check": "A: merged data, no live conflicts",
+      "expected": "_rev 3-8fc0650d59560c8a809451b7b2330f55, no _conflicts, status paid, street Kárász utca 12.",
+      "observed": "_rev 3-8fc0650d59560c8a809451b7b2330f55, _conflicts None, status paid, street Kárász utca 12., _deleted_conflicts ['3-03c970a37b339a258c3477557a4c35a5']",
+      "result": "PASS"
+    },
+    {
+      "step": 26,
+      "check": "B: merged data, no live conflicts",
+      "expected": "_rev 3-8fc0650d59560c8a809451b7b2330f55, no _conflicts, status paid, street Kárász utca 12.",
+      "observed": "_rev 3-8fc0650d59560c8a809451b7b2330f55, _conflicts None, status paid, street Kárász utca 12., _deleted_conflicts ['3-03c970a37b339a258c3477557a4c35a5']",
+      "result": "PASS"
+    }
+  ]
+}

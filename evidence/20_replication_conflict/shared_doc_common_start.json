@@ -1,0 +1,27 @@
+{
+  "_id": "store01:order-shared",
+  "_rev": "1-845cc458c4077f578aa02eb284f6a81a",
+  "type": "order",
+  "tenant": "store01",
+  "order_no": 901,
+  "status": "open",
+  "customer": {
+    "name": "Shared Customer",
+    "email": "shared@example.com"
+  },
+  "items": [
+    {
+      "sku": "SKU-COF-01",
+      "name": "Coffee beans 1 kg",
+      "qty": 3,
+      "unit_price": 18.9
+    }
+  ],
+  "total": 56.7,
+  "currency": "EUR",
+  "created_at": "2026-10-30T09:00:00Z",
+  "delivery": {
+    "city": "Szeged",
+    "street": "Kossuth tér 3."
+  }
+}

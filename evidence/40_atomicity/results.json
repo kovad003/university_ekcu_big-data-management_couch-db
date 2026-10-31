@@ -1,0 +1,86 @@
+{
+  "experiment": "Experiment D: update conflicts and non-atomic bulk operations",
+  "started": "2026-10-30T21:58:37+01:00",
+  "finished": "2026-10-30T21:58:37+01:00",
+  "passed": 11,
+  "failed": 0,
+  "checks": [
+    {
+      "step": 1,
+      "check": "Created",
+      "expected": "HTTP 201, rev 1-...",
+      "observed": "HTTP 201, rev 1-7d26bbf8399c4225c6da325d9a3b68ec",
+      "result": "PASS"
+    },
+    {
+      "step": 2,
+      "check": "Update accepted",
+      "expected": "HTTP 201, rev 2-...",
+      "observed": "HTTP 201, rev 2-a0b6810f5bc505b95ac74cfcfb36ceda",
+      "result": "PASS"
+    },
+    {
+      "step": 3,
+      "check": "Stale update rejected with 409",
+      "expected": "HTTP 409 {\"error\":\"conflict\"}",
+      "observed": "HTTP 409 {'error': 'conflict', 'reason': 'Document update conflict.'}",
+      "result": "PASS"
+    },
+    {
+      "step": 4,
+      "check": "Document still holds client 1's value",
+      "expected": "_rev 2-a0b6810f5bc505b95ac74cfcfb36ceda, on_hand 8",
+      "observed": "_rev 2-a0b6810f5bc505b95ac74cfcfb36ceda, on_hand 8",
+      "result": "PASS"
+    },
+    {
+      "step": 7,
+      "check": "The request as a whole reports success",
+      "expected": "HTTP 201 (even though one item fails)",
+      "observed": "HTTP 201",
+      "result": "PASS"
+    },
+    {
+      "step": 7,
+      "check": "Item bulk-a succeeded",
+      "expected": "{\"ok\": true, \"rev\": \"2-...\"}",
+      "observed": "{'ok': True, 'id': 'bulk-a', 'rev': '2-20910ce6dd5e495475420cee48427598'}",
+      "result": "PASS"
+    },
+    {
+      "step": 7,
+      "check": "Item bulk-b rejected",
+      "expected": "{\"error\": \"conflict\"}",
+      "observed": "{'id': 'bulk-b', 'error': 'conflict', 'reason': 'Document update conflict.'}",
+      "result": "PASS"
+    },
+    {
+      "step": 8,
+      "check": "bulk-a holds the new value",
+      "expected": "value a-v2",
+      "observed": "value a-v2, _rev 2-20910ce6dd5e495475420cee48427598",
+      "result": "PASS"
+    },
+    {
+      "step": 8,
+      "check": "bulk-b keeps its previous valid value",
+      "expected": "value b-v2, _rev 2-eb1a0a7636e239a81436c5e57ba585f1",
+      "observed": "value b-v2, _rev 2-eb1a0a7636e239a81436c5e57ba585f1",
+      "result": "PASS"
+    },
+    {
+      "step": 9,
+      "check": "Order written, stock update rejected",
+      "expected": "order ok, stock conflict",
+      "observed": "[{'ok': True, 'id': 'store01:order777', 'rev': '1-ae04e33c2c723585d6fed860a2d4ebfd'}, {'id': 'stock-SKU-KET-04', 'error': 'conflict', 'reason': 'Document update conflict.'}]",
+      "result": "PASS"
+    },
+    {
+      "step": 9,
+      "check": "Stock was NOT decremented for this order",
+      "expected": "on_hand 7 (only the concurrent checkout counted)",
+      "observed": "on_hand 7",
+      "result": "PASS"
+    }
+  ]
+}

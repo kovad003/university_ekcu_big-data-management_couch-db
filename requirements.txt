@@ -1,0 +1,2 @@
+# nothing to install: run.py and the scripts use only the standard library (python 3.9+)
+# for the offline tests: pip install -r requirements-dev.txt

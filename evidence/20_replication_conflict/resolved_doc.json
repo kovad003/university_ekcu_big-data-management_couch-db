@@ -1,0 +1,78 @@
+{
+  "A": {
+    "_id": "store01:order-shared",
+    "_rev": "3-8fc0650d59560c8a809451b7b2330f55",
+    "created_at": "2026-10-30T09:00:00Z",
+    "currency": "EUR",
+    "customer": {
+      "name": "Shared Customer",
+      "email": "shared@example.com"
+    },
+    "delivery": {
+      "city": "Szeged",
+      "street": "Kárász utca 12."
+    },
+    "items": [
+      {
+        "sku": "SKU-COF-01",
+        "name": "Coffee beans 1 kg",
+        "qty": 3,
+        "unit_price": 18.9
+      }
+    ],
+    "note": "Customer called: new delivery address",
+    "order_no": 901,
+    "payment": {
+      "method": "card",
+      "paid_at": "2026-10-30T10:15:00Z"
+    },
+    "status": "paid",
+    "tenant": "store01",
+    "total": 56.7,
+    "type": "order",
+    "merge_notes": [
+      "no overlapping field changes"
+    ],
+    "_deleted_conflicts": [
+      "3-03c970a37b339a258c3477557a4c35a5"
+    ]
+  },
+  "B": {
+    "_id": "store01:order-shared",
+    "_rev": "3-8fc0650d59560c8a809451b7b2330f55",
+    "created_at": "2026-10-30T09:00:00Z",
+    "currency": "EUR",
+    "customer": {
+      "name": "Shared Customer",
+      "email": "shared@example.com"
+    },
+    "delivery": {
+      "city": "Szeged",
+      "street": "Kárász utca 12."
+    },
+    "items": [
+      {
+        "sku": "SKU-COF-01",
+        "name": "Coffee beans 1 kg",
+        "qty": 3,
+        "unit_price": 18.9
+      }
+    ],
+    "note": "Customer called: new delivery address",
+    "order_no": 901,
+    "payment": {
+      "method": "card",
+      "paid_at": "2026-10-30T10:15:00Z"
+    },
+    "status": "paid",
+    "tenant": "store01",
+    "total": 56.7,
+    "type": "order",
+    "merge_notes": [
+      "no overlapping field changes"
+    ],
+    "_deleted_conflicts": [
+      "3-03c970a37b339a258c3477557a4c35a5"
+    ]
+  }
+}

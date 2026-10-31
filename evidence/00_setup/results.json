@@ -1,0 +1,107 @@
+{
+  "experiment": "Part 2: Setup and readiness of instances A and B",
+  "started": "2026-10-30T21:48:03+01:00",
+  "finished": "2026-10-30T21:48:07+01:00",
+  "passed": 14,
+  "failed": 0,
+  "checks": [
+    {
+      "step": 1,
+      "check": "A runs CouchDB 3.5.x",
+      "expected": "HTTP 200, version 3.5.x",
+      "observed": "HTTP 200, version 3.5.2",
+      "result": "PASS"
+    },
+    {
+      "step": 2,
+      "check": "B runs CouchDB 3.5.x",
+      "expected": "HTTP 200, version 3.5.x",
+      "observed": "HTTP 200, version 3.5.2",
+      "result": "PASS"
+    },
+    {
+      "step": 3,
+      "check": "A is a single-node instance",
+      "expected": "cluster_nodes has exactly 1 entry",
+      "observed": "['nonode@nohost']",
+      "result": "PASS"
+    },
+    {
+      "step": 4,
+      "check": "B is a single-node instance",
+      "expected": "cluster_nodes has exactly 1 entry",
+      "observed": "['nonode@nohost']",
+      "result": "PASS"
+    },
+    {
+      "step": 5,
+      "check": "A accepted cluster/n=1",
+      "expected": "HTTP 200",
+      "observed": "HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "step": 6,
+      "check": "_users exists on A",
+      "expected": "HTTP 201 (created) or 412 (already exists)",
+      "observed": "HTTP 412",
+      "result": "PASS"
+    },
+    {
+      "step": 7,
+      "check": "_replicator exists on A",
+      "expected": "HTTP 201 (created) or 412 (already exists)",
+      "observed": "HTTP 412",
+      "result": "PASS"
+    },
+    {
+      "step": 8,
+      "check": "A reports status ok",
+      "expected": "HTTP 200 {\"status\":\"ok\"}",
+      "observed": "HTTP 200 {'seeds': {}, 'status': 'ok'}",
+      "result": "PASS"
+    },
+    {
+      "step": 9,
+      "check": "B accepted cluster/n=1",
+      "expected": "HTTP 200",
+      "observed": "HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "step": 10,
+      "check": "_users exists on B",
+      "expected": "HTTP 201 (created) or 412 (already exists)",
+      "observed": "HTTP 412",
+      "result": "PASS"
+    },
+    {
+      "step": 11,
+      "check": "_replicator exists on B",
+      "expected": "HTTP 201 (created) or 412 (already exists)",
+      "observed": "HTTP 412",
+      "result": "PASS"
+    },
+    {
+      "step": 12,
+      "check": "B reports status ok",
+      "expected": "HTTP 200 {\"status\":\"ok\"}",
+      "observed": "HTTP 200 {'seeds': {}, 'status': 'ok'}",
+      "result": "PASS"
+    },
+    {
+      "step": 13,
+      "check": "Read-back on A matches the write",
+      "expected": "HTTP 201 then HTTP 200 with the same content",
+      "observed": "HTTP 201 then HTTP 200, written_by=01_setup.py",
+      "result": "PASS"
+    },
+    {
+      "step": 14,
+      "check": "Read-back on B matches the write",
+      "expected": "HTTP 201 then HTTP 200 with the same content",
+      "observed": "HTTP 201 then HTTP 200, written_by=01_setup.py",
+      "result": "PASS"
+    }
+  ]
+}

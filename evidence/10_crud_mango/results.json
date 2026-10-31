@@ -1,0 +1,72 @@
+{
+  "experiment": "Experiment A: CRUD and a Mango query",
+  "started": "2026-10-30T21:48:20+01:00",
+  "finished": "2026-10-30T21:48:20+01:00",
+  "passed": 9,
+  "failed": 0,
+  "checks": [
+    {
+      "step": 1,
+      "check": "Document created with revision 1",
+      "expected": "HTTP 201, rev 1-...",
+      "observed": "HTTP 201, rev 1-623aba778c662412f193bc4687379cf7",
+      "result": "PASS"
+    },
+    {
+      "step": 2,
+      "check": "Read returns the stored content and current _rev",
+      "expected": "HTTP 200, _rev 1-623aba778c662412f193bc4687379cf7, status open",
+      "observed": "HTTP 200, _rev 1-623aba778c662412f193bc4687379cf7, status open",
+      "result": "PASS"
+    },
+    {
+      "step": 3,
+      "check": "Update accepted with a new revision 2",
+      "expected": "HTTP 201, rev 2-...",
+      "observed": "HTTP 201, rev 2-7826c76f9c57a2271ad6e872e2a32712",
+      "result": "PASS"
+    },
+    {
+      "step": 4,
+      "check": "Stored status is now paid",
+      "expected": "status paid, _rev 2-7826c76f9c57a2271ad6e872e2a32712",
+      "observed": "status paid, _rev 2-7826c76f9c57a2271ad6e872e2a32712",
+      "result": "PASS"
+    },
+    {
+      "step": 5,
+      "check": "Delete accepted (tombstone revision 3)",
+      "expected": "HTTP 200, rev 3-...",
+      "observed": "HTTP 200, rev 3-11ad1671148a2236c25ff065cf0b89ac",
+      "result": "PASS"
+    },
+    {
+      "step": 6,
+      "check": "Read after delete returns 404 deleted",
+      "expected": "HTTP 404 {\"reason\":\"deleted\"}",
+      "observed": "HTTP 404 {'error': 'not_found', 'reason': 'deleted'}",
+      "result": "PASS"
+    },
+    {
+      "step": 7,
+      "check": "Index exists",
+      "expected": "result \"created\" (or \"exists\" on re-run)",
+      "observed": "HTTP 200, result created",
+      "result": "PASS"
+    },
+    {
+      "step": 8,
+      "check": "Query planner selects our index",
+      "expected": "index tenant-status-created",
+      "observed": "index tenant-status-created",
+      "result": "PASS"
+    },
+    {
+      "step": 9,
+      "check": "Result equals a client-side filter of all documents, in the same order",
+      "expected": "6 ids: ['store01:order008', 'store01:order009', 'store01:order007', 'store01:order018', 'store01:order020', 'store01:order003']",
+      "observed": "6 ids: ['store01:order008', 'store01:order009', 'store01:order007', 'store01:order018', 'store01:order020', 'store01:order003']",
+      "result": "PASS"
+    }
+  ]
+}

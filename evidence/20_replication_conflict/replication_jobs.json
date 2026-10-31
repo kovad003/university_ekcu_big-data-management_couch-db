@@ -1,0 +1,44 @@
+{
+  "A:rep-a-to-b-1": {
+    "source": {
+      "url": "http://couch-a:5984/orders",
+      "auth": {
+        "basic": {
+          "username": "admin_a",
+          "password": "***"
+        }
+      }
+    },
+    "target": {
+      "url": "http://couch-b:5984/orders",
+      "auth": {
+        "basic": {
+          "username": "admin_b",
+          "password": "***"
+        }
+      }
+    },
+    "continuous": true
+  },
+  "B:rep-b-to-a-1": {
+    "source": {
+      "url": "http://couch-b:5984/orders",
+      "auth": {
+        "basic": {
+          "username": "admin_b",
+          "password": "***"
+        }
+      }
+    },
+    "target": {
+      "url": "http://couch-a:5984/orders",
+      "auth": {
+        "basic": {
+          "username": "admin_a",
+          "password": "***"
+        }
+      }
+    },
+    "continuous": true
+  }
+}

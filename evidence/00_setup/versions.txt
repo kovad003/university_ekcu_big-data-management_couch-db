@@ -1,0 +1,12 @@
+$ docker image inspect couchdb:3.5.2 --format {{index .RepoDigests 0}}  {{.Architecture}}
+couchdb@sha256:5fc596110eac7f412173a7d9de14f70aa5d3e816790fb6e70642755d4a4cf464  amd64
+
+$ docker compose ps --format table {{.Name}}	{{.Status}}	{{.Ports}}
+NAME      STATUS         PORTS
+couch-a   Up 2 seconds   4369/tcp, 9100/tcp, 127.0.0.1:5984->5984/tcp
+couch-b   Up 2 seconds   4369/tcp, 9100/tcp, 127.0.0.1:5985->5984/tcp
+
+$ docker stats --no-stream --format table {{.Name}}	{{.MemUsage}}	{{.CPUPerc}} couch-a couch-b
+NAME      MEM USAGE / LIMIT   CPU %
+couch-a   111.9MiB / 512MiB   1.79%
+couch-b   102.7MiB / 512MiB   1.94%

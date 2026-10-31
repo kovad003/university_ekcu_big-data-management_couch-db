@@ -1,0 +1,46 @@
+{
+  "global": {
+    "ids": [
+      "store01:order001",
+      "store01:order003",
+      "store01:order007",
+      "store01:order008",
+      "store01:order009",
+      "store01:order010",
+      "store01:order015",
+      "store01:order018",
+      "store01:order019",
+      "store01:order020"
+    ],
+    "execution_stats": {
+      "total_keys_examined": 10,
+      "total_docs_examined": 10,
+      "total_quorum_docs_examined": 0,
+      "results_returned": 10,
+      "execution_time_ms": 4.036
+    },
+    "warning": null
+  },
+  "partition": {
+    "ids": [
+      "store01:order001",
+      "store01:order003",
+      "store01:order007",
+      "store01:order008",
+      "store01:order009",
+      "store01:order010",
+      "store01:order015",
+      "store01:order018",
+      "store01:order019",
+      "store01:order020"
+    ],
+    "execution_stats": {
+      "total_keys_examined": 10,
+      "total_docs_examined": 10,
+      "total_quorum_docs_examined": 0,
+      "results_returned": 10,
+      "execution_time_ms": 7.864
+    },
+    "warning": null
+  }
+}

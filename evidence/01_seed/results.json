@@ -1,0 +1,37 @@
+{
+  "experiment": "Seed the demo database",
+  "started": "2026-10-30T21:48:30+01:00",
+  "finished": "2026-10-30T21:48:30+01:00",
+  "passed": 4,
+  "failed": 0,
+  "checks": [
+    {
+      "step": 1,
+      "check": "`orders` exists on A",
+      "expected": "HTTP 201, or 412 if it already exists",
+      "observed": "HTTP 201",
+      "result": "PASS"
+    },
+    {
+      "step": 2,
+      "check": "`orders` exists on B",
+      "expected": "HTTP 201, or 412 if it already exists",
+      "observed": "HTTP 201",
+      "result": "PASS"
+    },
+    {
+      "step": 4,
+      "check": "Every order is stored on A (new or already present)",
+      "expected": "HTTP 201 and 100 items ok or already present",
+      "observed": "HTTP 201, 100 created, 0 already present",
+      "result": "PASS"
+    },
+    {
+      "step": 5,
+      "check": "Document count on A",
+      "expected": ">= 100 documents",
+      "observed": "100 documents",
+      "result": "PASS"
+    }
+  ]
+}
