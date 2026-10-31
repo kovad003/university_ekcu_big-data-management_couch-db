@@ -1,0 +1,38 @@
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Testing, linting & type-checking caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Distribution / packaging builds
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# IDEs & OS metadata
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Project-specific media & logs
+*.mp4
+*.mkv
+*.log
