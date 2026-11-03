@@ -37,7 +37,7 @@ On the recording machine: Python 3.14.8, pytest 9.2.0, 20 passed in 0.11 s. Also
 
 ## Not run
 
-macOS (Intel, Docker Desktop) and Windows 11 (Docker Desktop with WSL 2) are planned but not done yet. `run_windows.bat` was read through, not run.
+The evidence has been committed on Daniel’s Fedora laptop. Csaba presented his parts (4, 5C, 5D and 6) from Windows 11 with Docker Desktop and the WSL 2 backend; those runs are not in `evidence/`. macOS was dropped.
 
 The optional timing run (`python run.py C --timing`, 10,000 orders) exists but hasn't been executed. No performance claim is made.
 
